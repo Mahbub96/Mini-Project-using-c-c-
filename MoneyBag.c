@@ -60,7 +60,7 @@ void removeMoney(){
 void View(){
     system("cls");
     FILE *fpr;
-    int amount = 0;
+    int amount = 0,totalDavit=0,totalCredit=0;
     fpr = fopen("data.dat","r");
     if(!fpr){
         printf("File is Empty!\a");
@@ -76,8 +76,14 @@ void View(){
     }
     while(fread(&m,sizeof(m),1,fpr)){
         amount += m.save;
-        if( m.save < 0) printf("\n Credit");
-        else printf("\n Davit ");
+        if( m.save < 0) {
+                printf("\n Credit");
+                totalCredit += m.save;
+        }
+        else{
+            totalDavit += m.save;
+            printf("\n Davit ");
+        }
        printf("%10s %10d %10s\n",m.date,m.save,m.cause);
 
     }
@@ -86,7 +92,7 @@ void View(){
         printf("-");
         i--;
     }
-    printf("\n\nAfter all Calculation , your have : %d taka",amount);
+    printf("\n \t Total Davit : %d TAKA\n\ttotal Credit :%d TAKA\n\t  Your have  : %d TAKA",totalDavit,totalCredit,amount);
     fclose(fpr);
     back();
 }
@@ -113,3 +119,4 @@ int main(){
     menu();
     return 0;
 }
+
